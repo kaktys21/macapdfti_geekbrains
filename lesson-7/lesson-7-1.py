@@ -6,10 +6,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.options import Options
 
-email = 'fikl2020'
+#firefox_options = Options()
+#firefox_options.add_argument("--headless")
+#driver = webdriver.Firefox(options=firefox_options)
 
-#firefox_opt = Options()
-#firefox_opt.headless = True #Режим без интерфейса
 driver = webdriver.Firefox()
 
 def autorisation():
@@ -17,18 +17,13 @@ def autorisation():
     driver.get('https://mail.yandex.ru/')
     enter_link = driver.find_element_by_xpath('/html/body/div/div/div[2]/div/div/div[4]/a[2]').get_attribute('href')
     driver.get(enter_link)
-    driver.find_element_by_id('passp-field-login').send_keys(email) # заполняем логин
+    driver.find_element_by_id('passp-field-login').send_keys(input('Enter login:  ')) # заполняем логин
     enter_button = driver.find_element_by_id('passp:sign-in')
     enter_button.click()   
     time.sleep(1)
-    driver.find_element_by_id('passp-field-passwd').send_keys(input()) # заполняем пароль
+    driver.find_element_by_id('passp-field-passwd').send_keys(input('Enter password:  ')) # заполняем пароль
     driver.find_element_by_id('passp:sign-in').click()
-    '''яндекс может что-то начать предлагать'''
-    time.sleep(1)
-    '''try:
-        driver.find_element_by_class_name('mail-NestedList-Item-Name')
-    except:
-        driver.find_elements_by_class_name('passp-button')[1].click()'''
+
 
 def all_scroller():
         
@@ -105,4 +100,5 @@ def main():
     data_df = pandas.DataFrame(data, columns=['Тема', 'Отправитель', 'Текст', 'Дата'], index=range(1, len(data) + 1))
     return data_df
 
+main()
 driver.quit()
